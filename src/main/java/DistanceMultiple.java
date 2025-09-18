@@ -25,10 +25,9 @@
  *  Enter input 3 (like (x1,y1)(x2,y2)): (-1,-2)(0,7)
  *
  */
-
-
 import java.util.Scanner;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DistanceMultiple
 {
@@ -45,25 +44,28 @@ public class DistanceMultiple
         System.out.println();
         scanner.nextLine();
 
+        Pattern numberPattern = Pattern.compile("-?\\d+(\\.\\d+)?");
+
         for (int i = 1; i <= runs; i++)
         {
-            // Prompt the user for both points at once
-            System.out.print("Enter both points (x1,y1) (x2,y2): ");
+            System.out.print("Enter both points (x1,y1)(x2,y2): ");
             String input = scanner.nextLine().trim();
-            // Remove parentheses and split by space2
-            input = input.replace("(","").replace(")","");
-            String[] points = input.split("\\s+");
-            String[] coords1 = points[0].split(",");
-            String[] coords2 = points[1].split(",");
-            double x1 = Double.parseDouble(coords1[0].trim());
-            double y1 = Double.parseDouble(coords1[1].trim());
-            double x2 = Double.parseDouble(coords2[0].trim());
-            double y2 = Double.parseDouble(coords2[1].trim());
 
-            // Calculate the distance using the distance formula
+            Matcher matcher = numberPattern.matcher(input);
+            double[] coords = new double[4];
+            int idx = 0;
+
+            while (matcher.find() && idx < 4) {
+                coords[idx] = Double.parseDouble(matcher.group());
+                idx++;
+            }
+
+            double x1 = coords[0];
+            double y1 = coords[1];
+            double x2 = coords[2];
+            double y2 = coords[3];
+
             double distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-
-            // Print the output
             System.out.println("Distance between points: " + distance);
             System.out.println();
             System.out.println();
