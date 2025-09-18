@@ -50,7 +50,7 @@ public class DistanceMultiple
             // Prompt the user for both points at once
             System.out.print("Enter both points (x1,y1) (x2,y2): ");
             String input = scanner.nextLine().trim();
-            // Remove parentheses and split by space
+            // Remove parentheses and split by space2
             input = input.replace("(","").replace(")","");
             String[] points = input.split("\\s+");
             String[] coords1 = points[0].split(",");
